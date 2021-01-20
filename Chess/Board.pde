@@ -1,13 +1,24 @@
 class Board {
 
   private Cell[][] squares = new Cell[8][8];
-
+  Timer timer;
   Board() {
+    boardWidth = .7*width;
+    boardHeight = height;
+    cellWidth = boardWidth/8;
+    cellHeight = boardHeight/8;
     reset();
+    timer = new Timer();
+    timer.start();
   }
 
   Cell getCell(int x, int y) {
-    return squares[x][y];
+    try {
+      return squares[x][y];
+    } 
+    catch (ArrayIndexOutOfBoundsException exe) {
+      return null;
+    }
   }
 
   void reset() {
@@ -34,15 +45,15 @@ class Board {
         } else {
           fill(209, 139, 71);
         }
-        rect(j*(width/8), i*(height/8), width/8, height/8);
+        rect(j*(boardWidth/8), i*(boardHeight/8), cellWidth, cellHeight);
         white = !white;
       }
     }
   }
 
   void selectSquare(Cell selected) {
-    fill(232,173,115);
-    rect(selected.getXPos()*(width/8), selected.getYPos()*(height/8), width/8, height/8);
+    fill(232, 173, 115);
+    rect(selected.getXPos()*(cellWidth), selected.getYPos()*(cellHeight), cellWidth, cellHeight);
     selected.drawPiece();
   }
 

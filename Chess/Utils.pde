@@ -1,11 +1,11 @@
 // Gets the x location of a cell based on its X index
 float getX(int cellX) {
-  return cellX * (width/8);
+  return cellX * (cellWidth);
 }
 
 // Gets the y loction of a cell based on its Y index
 float getY(int cellY) {
-  return cellY * (height/8);
+  return cellY * (cellHeight);
 }
 
 // Collision detection for Rooks, Queens, and Pawns

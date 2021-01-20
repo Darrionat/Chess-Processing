@@ -1,4 +1,5 @@
 class King extends Piece {
+
   King(boolean white) {
     super("King", white);
   }
@@ -6,8 +7,56 @@ class King extends Piece {
   boolean canMove(Cell start, Cell end) {
     int xDiff = abs(end.getXPos() - start.getXPos());
     int yDiff = abs(end.getYPos() - start.getYPos());
-    
-    return xDiff + yDiff == 1;
+    if (xDiff < 2 && yDiff < 2) {
+      return true;
+    }
+    return validCastle(end);
+  }
+
+  boolean validCastle(Cell end) {
+    if (hasMoved)
+      return false;
+    int y = 0;
+    if (white) {
+      y = 7;
+    }
+    if (end.getYPos() != y)
+      return false;
+
+    // Queen side castle
+    if (end.getXPos() == 2) {
+      Piece rook = board.getCell(0, y).getPiece();
+      if (rook == null || !(rook instanceof Rook) || rook.hasMoved)
+        return false;
+      return board.getCell(1, y).getPiece() == null 
+        && board.getCell(2, y).getPiece() == null 
+        && board.getCell(3, y).getPiece() == null;
+    }
+
+    // King side castle
+    if (end.getXPos() == 6) {
+      Piece rook = board.getCell(7, y).getPiece();
+      if (rook == null || !(rook instanceof Rook) || rook.hasMoved)
+        return false;
+      return board.getCell(5, y).getPiece() == null 
+        && board.getCell(6, y).getPiece() == null;
+    }
+    return false;
+  }
+  
+  // Should only be used when a valid castle is being performed
+  Cell getCastleRookCell(Cell end) {
+    int y = 0;
+    if (white) {
+      y = 7;
+    }
+    if (end.getXPos() == 2) {
+      return board.getCell(0, y);
+    }
+    if (end.getXPos() == 6) {
+      return board.getCell(7, y);
+    }
+    return null;
   }
 }
 

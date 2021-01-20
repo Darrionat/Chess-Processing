@@ -64,7 +64,7 @@ abstract class Piece {
   void kill() {
     dead = true;
   }
-  void setHasMoved(boolean b){
-     hasMoved = true; 
+  void setHasMoved(boolean b) {
+    hasMoved = b;
   }
 }

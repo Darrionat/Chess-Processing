@@ -1,10 +1,12 @@
 Cell spot1;
 
 void mousePressed() {
-  int xPos = mouseX / (width/8);
-  int yPos = mouseY / (height/8);
+  int xPos = int(mouseX / (cellWidth));
+  int yPos = int(mouseY / (cellHeight));
 
   Cell selected = board.getCell(xPos, yPos);
+  if (selected == null)
+    return;
   // Pick first square
   if (spot1 == null) {
     Piece piece = selected.getPiece();

@@ -21,7 +21,7 @@ class Cell {
     PImage img = piece.getImage();
     if (img == null) 
       return;
-    image(img, getX(xPos), getY(yPos), width/8, height/8);
+    image(img, getX(xPos), getY(yPos), cellWidth, cellHeight);
   }
 
   boolean containsPiece() {
